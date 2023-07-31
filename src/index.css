@@ -88,11 +88,19 @@ body {
   margin-bottom: 20px;
 }
 
+/* Player Controls CSS */
+.c-player--buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+}
+
 .c-player--controls {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
 }
 
 .c-player--controls .play-btn {
@@ -117,3 +125,62 @@ body {
   color: #888;
   font-size: 18px;
 }
+
+.c-song--duration {
+  color: white;
+  text-align: right;
+}
+
+.c-timeline--slider {
+  width: 100%;
+}
+
+.c-favorite {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.shuffle-btn, .repeat-btn, .like-btn, .favorite-btn{
+  background-color: transparent;
+  color: white; 
+  border: none;
+  font-size: 1.5em;
+}
+
+.active-btn {
+  color: green;
+}
+
+/* Favorite Song Styles */
+.c-favorite--playlist {
+  margin-top: 15px;
+}
+
+.fav-song {
+  height: 75px;
+  background-color: transparent;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  /* border: 1px solid white; */
+  border-left: none;
+  border-right: none;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.fav-song--details {
+  margin-left: 15px;
+  color: white;
+}
+
+.fav-details--title {
+  margin-bottom: 5px;
+}
+
+
+
+
+
