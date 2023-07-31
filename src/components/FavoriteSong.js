@@ -2,6 +2,7 @@ import React from "react";
 function FavoriteSong(props) {
   const changeSong = () => {
     props.setCurrentSongIndex(props.index);
+    props.setIsPlaying(true);
   };
   return (
     <button className="fav-song" onClick={changeSong}>

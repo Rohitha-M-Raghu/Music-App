@@ -9,6 +9,7 @@ function FavoriteList(props) {
           index={likedIndex}
           song={props.songs[likedIndex]}
           setCurrentSongIndex={props.setCurrentSongIndex}
+          setIsPlaying={props.setIsPlaying}
         />
       ))}
     </div>

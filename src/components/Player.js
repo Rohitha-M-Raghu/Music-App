@@ -17,7 +17,7 @@ function Player(props) {
     } else {
       audioEl.current.pause();
     }
-  }, [props.currentSongIndex]);
+  }, [props.currentSongIndex, isPlaying]);
 
   // for play/pause button
   const handlePlayPause = () => {
@@ -149,6 +149,7 @@ function Player(props) {
           songs={props.songs}
           likedList={props.likedList}
           setCurrentSongIndex={props.setCurrentSongIndex}
+          setIsPlaying={setIsPlaying}
         />
       )}
     </div>
