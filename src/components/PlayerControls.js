@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
@@ -10,21 +10,18 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function PlayerControls(props) {
-  const [isShuffle, setIsShuffle] = useState(false);
-  const [isRepeat, setIsRepeat] = useState(false);
-
-  const shuffleClass = `shuffle-btn ${isShuffle ? "active-btn" : ""}`;
-  const repeatClass = `repeat-btn ${isRepeat ? "active-btn" : ""}`;
+  const shuffleClass = `shuffle-btn ${props.isShuffle ? "active-btn" : ""}`;
+  const repeatClass = `repeat-btn ${props.isRepeat ? "active-btn" : ""}`;
 
   const changeShuffle = () => {
-    const newShuffle = !isShuffle;
-    setIsShuffle(newShuffle);
+    const newShuffle = !props.isShuffle;
+    props.setIsShuffle(newShuffle);
     console.log("Shuffle Clicked... " + newShuffle);
   };
 
   const changeRepeat = () => {
-    const newRepeat = !isRepeat;
-    setIsRepeat(newRepeat);
+    const newRepeat = !props.isRepeat;
+    props.setIsRepeat(newRepeat);
     console.log("Repeat Clicked... " + newRepeat);
   };
 
@@ -34,10 +31,7 @@ function PlayerControls(props) {
         <FontAwesomeIcon icon={faShuffle} />
       </button>
       <div className="c-player--controls">
-        <button
-          className="skip-btn"
-          onClick={() => props.SkipSong(isRepeat, isShuffle, false)}
-        >
+        <button className="skip-btn" onClick={() => props.SkipSong(false)}>
           <FontAwesomeIcon icon={faBackward} />
         </button>
         <button
@@ -47,10 +41,7 @@ function PlayerControls(props) {
         >
           <FontAwesomeIcon icon={props.isPlaying ? faPause : faPlay} />
         </button>
-        <button
-          className="skip-btn"
-          onClick={() => props.SkipSong(isRepeat, isShuffle, true)}
-        >
+        <button className="skip-btn" onClick={() => props.SkipSong(true)}>
           <FontAwesomeIcon icon={faForward} />
         </button>
       </div>

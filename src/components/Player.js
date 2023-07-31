@@ -11,6 +11,9 @@ function Player(props) {
   const [duration, setDuration] = useState(0);
   const [showFavorites, setShowFavorites] = useState(false);
 
+  const [isShuffle, setIsShuffle] = useState(false);
+  const [isRepeat, setIsRepeat] = useState(false);
+
   useEffect(() => {
     if (isPlaying) {
       audioEl.current.play();
@@ -39,7 +42,7 @@ function Player(props) {
     setDuration(audioEl.current.duration);
   };
 
-  const SkipSong = (isRepeat, isShuffle, forwards) => {
+  const SkipSong = (forwards) => {
     if (isShuffle) {
       // Shuffle handle code
     } else {
@@ -139,6 +142,10 @@ function Player(props) {
         // setIsPlaying={setIsPlaying}
         onPlay={handlePlayPause}
         SkipSong={SkipSong}
+        isShuffle={isShuffle}
+        setIsShuffle={setIsShuffle}
+        isRepeat={isRepeat}
+        setIsRepeat={setIsRepeat}
       />
       <p>
         <strong>Next up:</strong> {props.songs[props.nextSongIndex].title} by{" "}
