@@ -11,13 +11,6 @@ function Player(props) {
   const [duration, setDuration] = useState(0);
   const [showFavorites, setShowFavorites] = useState(false);
 
-  // useEffect(()=> {
-  //   if(currentTime === duration) {
-  //     SkipSong(true);
-  //   }
-
-  // }, [currentTime])
-
   useEffect(() => {
     if (isPlaying) {
       audioEl.current.play();
@@ -106,6 +99,9 @@ function Player(props) {
         ref={audioEl}
         onTimeUpdate={handleTimeUpdate}
         onLoadedData={handleLoadedData}
+        onEnded={() => {
+          SkipSong(false, false, true);
+        }}
       ></audio>
       <h4>Playing Now</h4>
       {/* Details */}
