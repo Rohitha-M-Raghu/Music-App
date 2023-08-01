@@ -11,9 +11,6 @@ function Player(props) {
   const [duration, setDuration] = useState(0);
   const [showFavorites, setShowFavorites] = useState(false);
 
-  const [isShuffle, setIsShuffle] = useState(false);
-  const [isRepeat, setIsRepeat] = useState(false);
-
   useEffect(() => {
     if (isPlaying) {
       audioEl.current.play();
@@ -43,11 +40,12 @@ function Player(props) {
   };
 
   const SkipSong = (forwards) => {
-    if (isShuffle) {
+    if (props.isShuffle) {
       // Shuffle handle code
+      // create a function to shuffle the playlist
     } else {
       // Not Repeat -- stopping condition
-      if (!isRepeat) {
+      if (!props.isRepeat) {
         if (forwards && props.currentSongIndex === props.songs.length - 1) {
           audioEl.current.pause();
         } else if (!forwards && props.currentSongIndex === 0) {
@@ -142,10 +140,10 @@ function Player(props) {
         // setIsPlaying={setIsPlaying}
         onPlay={handlePlayPause}
         SkipSong={SkipSong}
-        isShuffle={isShuffle}
-        setIsShuffle={setIsShuffle}
-        isRepeat={isRepeat}
-        setIsRepeat={setIsRepeat}
+        isShuffle={props.isShuffle}
+        setIsShuffle={props.setIsShuffle}
+        isRepeat={props.isRepeat}
+        setIsRepeat={props.setIsRepeat}
       />
       <p>
         <strong>Next up:</strong> {props.songs[props.nextSongIndex].title} by{" "}

@@ -7,6 +7,7 @@ function FavoriteList(props) {
       {props.likedList.map((likedIndex) => (
         <FavoriteSong
           index={likedIndex}
+          key={likedIndex}
           song={props.songs[likedIndex]}
           setCurrentSongIndex={props.setCurrentSongIndex}
           setIsPlaying={props.setIsPlaying}
