@@ -19,6 +19,8 @@ function Player(props) {
     prevSongIndex,
     isPrevDisabled,
     isNextDisabled,
+    shuffleQueue,
+    shuffleIndex,
   } = props;
 
   let { title, artist } = songs[nextSongIndex];
@@ -58,9 +60,11 @@ function Player(props) {
 
   const SkipSong = (forwards) => {
     if (forwards) {
-      setCurrentSongIndex(nextSongIndex);
+      setCurrentSongIndex(nextSongIndex || 0);
+
+      // change shuffle index
     } else {
-      setCurrentSongIndex(prevSongIndex);
+      setCurrentSongIndex(prevSongIndex || 0);
     }
   };
 
@@ -149,9 +153,10 @@ function Player(props) {
 
       {/* Testing */}
       <div className="test--style">
-        {props.shuffleQueue.map((index) => (
+        {shuffleQueue.map((index) => (
           <p>{index} </p>
         ))}
+        <p>Shuffle Index: {shuffleIndex}</p>
       </div>
       {/* Testing */}
     </div>

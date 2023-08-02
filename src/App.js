@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import Player from "./components/Player";
+// import { songsList } from "./Utils/songUtil";
 
 function App() {
   const [songs] = useState([
@@ -36,7 +37,7 @@ function App() {
   const [likedList, setLikedList] = useState([]);
 
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
-  const [nextSongIndex, setNextSongIndex] = useState(currentSongIndex + 1);
+  const [nextSongIndex, setNextSongIndex] = useState(1);
   const [prevSongIndex, setPrevSongIndex] = useState(-1);
 
   const [isPrevDisabled, setIsPrevDisabled] = useState(false);
@@ -46,7 +47,10 @@ function App() {
   const [isRepeat, setIsRepeat] = useState(false);
 
   const [shuffleQueue, setShuffleQueue] = useState([]);
-  const [shuffleIndex, setShuffleIndex] = useState(-1);
+  const [shuffleIndex, setShuffleIndex] = useState(0);
+
+  // for checking whether shuffleIndex should change
+  // const [isShuffleIndexChanges, setIisShuffleIndexChanges] = useState(false);
 
   const generateShuffleQueue = useCallback(() => {
     const totalSongs = songs.length;
@@ -62,8 +66,8 @@ function App() {
         shuffledIndices[i],
       ];
     }
-    shuffledIndices = [...shuffledIndices, currentSongIndex];
-    setShuffleIndex(0);
+    shuffledIndices = [currentSongIndex, ...shuffledIndices];
+    // setShuffleIndex(0);
     // Return the shuffled queue
     return shuffledIndices;
   }, [currentSongIndex, songs.length]);
@@ -71,28 +75,30 @@ function App() {
   useEffect(() => {
     if (isShuffle) {
       setShuffleQueue(generateShuffleQueue());
-      setShuffleIndex(0);
+      setShuffleIndex(currentSongIndex || 0);
       //testing
-      console.log("UseEffect triggered ---" + shuffleQueue);
+      // console.log("UseEffect triggered ---" + shuffleQueue);
     } else {
       setShuffleQueue([]);
     }
-  }, [isShuffle, setShuffleQueue]);
+  }, [isShuffle]);
   // }, [isShuffle, setShuffleQueue, generateShuffleQueue]);
 
   useEffect(() => {
-    // console.log(shuffleIndex);
-  }, [shuffleIndex]);
+    // console.log(currentSongIndex);
+  }, [currentSongIndex]);
 
   useEffect(() => {
-    // console.log(shuffleIndex);
     let isPrevDisabled = false;
     let isNextDisabled = false;
     // setIsNextDisabled(false);
     // setIsPrevDisabled(false);
     setNextSongIndex(() => {
       let nextSong = 0;
-      if (isShuffle) {
+      if (isShuffle && shuffleQueue.length) {
+        // shuffle index setting...
+        const shuffleIndex = shuffleQueue.indexOf(currentSongIndex);
+        setShuffleIndex(shuffleIndex);
         if (shuffleIndex === songs.length - 1) {
           if (isRepeat) {
             nextSong = shuffleQueue[0];
@@ -154,6 +160,7 @@ function App() {
   return (
     <div className="App">
       {/* <Player song={songs[currentSongIndex]} nextSong={songs[nextSongIndex]} /> */}
+      {console.log(shuffleIndex)}
       <Player
         currentSongIndex={currentSongIndex}
         setCurrentSongIndex={setCurrentSongIndex}
@@ -168,8 +175,12 @@ function App() {
         prevSongIndex={prevSongIndex}
         isPrevDisabled={isPrevDisabled}
         isNextDisabled={isNextDisabled}
+        // isShuffleIndexChanges={isShuffleIndexChanges}
+        // setIisShuffleIndexChanges={setIisShuffleIndexChanges}
         // testing
         shuffleQueue={shuffleQueue}
+        setShuffleIndex={setShuffleIndex}
+        shuffleIndex={shuffleIndex}
       />
     </div>
   );

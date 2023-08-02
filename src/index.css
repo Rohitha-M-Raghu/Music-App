@@ -201,6 +201,33 @@ body {
   color: white;
 }
 
+/*Tooltip CSS */
+.tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  z-index: 9999;
+}
+
+.tooltip.top {
+  bottom: calc(100% + 4px);
+}
+
+.tooltip.bottom {
+  top: calc(100% + 4px);
+}
+
+.tooltip.left {
+  right: calc(100% + 4px);
+}
+
+.tooltip.right {
+  left: calc(100% + 4px);
+}
+
+
 
 
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import {
   faPlay,
   faPause,
@@ -27,13 +28,13 @@ function PlayerControls(props) {
   const changeShuffle = () => {
     const newShuffle = !isShuffle;
     setIsShuffle(newShuffle);
-    console.log("Shuffle Clicked... " + newShuffle);
+    // console.log("Shuffle Clicked... " + newShuffle);
   };
 
   const changeRepeat = () => {
     const newRepeat = !isRepeat;
     setIsRepeat(newRepeat);
-    console.log("Repeat Clicked... " + newRepeat);
+    // console.log("Repeat Clicked... " + newRepeat);
   };
 
   const prevBtnClass = `skip-btn ${isPrevDisabled ? "skip-btn--disabled" : ""}`;
