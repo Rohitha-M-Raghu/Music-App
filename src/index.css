@@ -14,11 +14,14 @@ body {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  /* height: 100vh; */
 }
 
 .c-player {
   display: block;
   background-color: #313131;
+  /* fixed width */
+  width: 50vh;
   display: block;
   margin: 0px auto;
   padding: 50px;
