@@ -99,7 +99,7 @@ function App() {
         // shuffle index setting...
         const shuffleIndex = shuffleQueue.indexOf(currentSongIndex);
         setShuffleIndex(shuffleIndex);
-        if (shuffleIndex === songs.length - 1) {
+        if (currentSongIndex === shuffleQueue[songs.length - 1]) {
           if (isRepeat) {
             nextSong = shuffleQueue[0];
           } else {
@@ -128,7 +128,7 @@ function App() {
     setPrevSongIndex(() => {
       let prevSong = 0;
       if (isShuffle) {
-        if (shuffleIndex === 0) {
+        if (currentSongIndex === shuffleQueue[0]) {
           if (isRepeat) {
             prevSong = shuffleQueue[songs.length - 1];
           } else {
