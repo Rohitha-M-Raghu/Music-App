@@ -160,7 +160,6 @@ function App() {
   return (
     <div className="App">
       {/* <Player song={songs[currentSongIndex]} nextSong={songs[nextSongIndex]} /> */}
-      {console.log(shuffleIndex)}
       <Player
         currentSongIndex={currentSongIndex}
         setCurrentSongIndex={setCurrentSongIndex}

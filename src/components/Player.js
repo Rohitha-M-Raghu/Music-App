@@ -8,7 +8,7 @@ function Player(props) {
   let {
     currentSongIndex,
     setCurrentSongIndex,
-    nextSongIndex = 0,
+    nextSongIndex,
     songs,
     likedList,
     setLikedList,
