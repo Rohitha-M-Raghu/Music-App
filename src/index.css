@@ -117,13 +117,24 @@ body {
   cursor: pointer;
 }
 
-.c-player--controls .skip-btn {
+.c-player--controls {
   background: none;
   border: none;
   outline: none;
   cursor: pointer;
   color: #888;
   font-size: 18px;
+}
+
+.skip-btn {
+  color: white;
+  background-color: transparent;
+  border: none;
+  font-size: 1em;
+}
+
+.skip-btn--disabled {
+  color: #888;
 }
 
 .c-song--duration {
@@ -153,6 +164,11 @@ body {
 }
 
 /* Favorite Song Styles */
+.c-favorites--title {
+  color: white;
+  margin-top: 10px;
+}
+
 .c-favorite--playlist {
   margin-top: 15px;
 }
@@ -180,6 +196,10 @@ body {
   margin-bottom: 5px;
 }
 
+/* Testing */
+.test--style {
+  color: white;
+}
 
 
 

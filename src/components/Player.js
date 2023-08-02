@@ -5,6 +5,23 @@ import Favorite from "./Favorite";
 import FavoriteList from "./FavoriteList";
 
 function Player(props) {
+  let {
+    currentSongIndex,
+    setCurrentSongIndex,
+    nextSongIndex = 0,
+    songs,
+    likedList,
+    setLikedList,
+    isShuffle,
+    setIsShuffle,
+    isRepeat,
+    setIsRepeat,
+    prevSongIndex,
+    isPrevDisabled,
+    isNextDisabled,
+  } = props;
+
+  let { title, artist } = songs[nextSongIndex];
   const audioEl = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -17,7 +34,7 @@ function Player(props) {
     } else {
       audioEl.current.pause();
     }
-  }, [props.currentSongIndex, isPlaying]);
+  }, [currentSongIndex, isPlaying]);
 
   // for play/pause button
   const handlePlayPause = () => {
@@ -40,40 +57,10 @@ function Player(props) {
   };
 
   const SkipSong = (forwards) => {
-    if (props.isShuffle) {
-      // Shuffle handle code
-      // create a function to shuffle the playlist
+    if (forwards) {
+      setCurrentSongIndex(nextSongIndex);
     } else {
-      // Not Repeat -- stopping condition
-      if (!props.isRepeat) {
-        if (forwards && props.currentSongIndex === props.songs.length - 1) {
-          audioEl.current.pause();
-        } else if (!forwards && props.currentSongIndex === 0) {
-          audioEl.current.pause();
-        }
-      }
-      // Normal Skip
-      if (forwards) {
-        props.setCurrentSongIndex(() => {
-          let temp = props.currentSongIndex;
-          temp++;
-
-          if (temp > props.songs.length - 1) {
-            temp = 0;
-          }
-          return temp;
-        });
-      } else {
-        props.setCurrentSongIndex(() => {
-          let temp = props.currentSongIndex;
-          temp--;
-
-          if (temp < 0) {
-            temp = props.songs.length - 1;
-          }
-          return temp;
-        });
-      }
+      setCurrentSongIndex(prevSongIndex);
     }
   };
 
@@ -96,7 +83,7 @@ function Player(props) {
   return (
     <div className="c-player">
       <audio
-        src={props.songs[props.currentSongIndex].src}
+        src={songs[currentSongIndex].src}
         ref={audioEl}
         onTimeUpdate={handleTimeUpdate}
         onLoadedData={handleLoadedData}
@@ -106,14 +93,14 @@ function Player(props) {
       ></audio>
       <h4>Playing Now</h4>
       {/* Details */}
-      <PlayerDetails song={props.songs[props.currentSongIndex]} />
+      <PlayerDetails song={songs[currentSongIndex]} />
       {/* Liked Song */}
       <Favorite
-        songs={props.songs}
-        song={props.songs[props.currentSongIndex]}
-        likedList={props.likedList}
-        setLikedList={props.setLikedList}
-        songIndex={props.currentSongIndex}
+        // songs={songs}
+        // song={songs[currentSongIndex]}
+        likedList={likedList}
+        setLikedList={setLikedList}
+        songIndex={currentSongIndex}
         showFavorites={showFavorites}
         setShowFavorites={setShowFavorites}
       />
@@ -140,23 +127,33 @@ function Player(props) {
         // setIsPlaying={setIsPlaying}
         onPlay={handlePlayPause}
         SkipSong={SkipSong}
-        isShuffle={props.isShuffle}
-        setIsShuffle={props.setIsShuffle}
-        isRepeat={props.isRepeat}
-        setIsRepeat={props.setIsRepeat}
+        isShuffle={isShuffle}
+        setIsShuffle={setIsShuffle}
+        isRepeat={isRepeat}
+        setIsRepeat={setIsRepeat}
+        isPrevDisabled={isPrevDisabled}
+        isNextDisabled={isNextDisabled}
       />
       <p>
-        <strong>Next up:</strong> {props.songs[props.nextSongIndex].title} by{" "}
-        {props.songs[props.nextSongIndex].artist}
+        <strong>Next up:</strong> {title || "error loading title"} by{" "}
+        {artist || "error loading artist"}
       </p>
       {showFavorites && (
         <FavoriteList
-          songs={props.songs}
-          likedList={props.likedList}
-          setCurrentSongIndex={props.setCurrentSongIndex}
+          songs={songs}
+          likedList={likedList}
+          setCurrentSongIndex={setCurrentSongIndex}
           setIsPlaying={setIsPlaying}
         />
       )}
+
+      {/* Testing */}
+      <div className="test--style">
+        {props.shuffleQueue.map((index) => (
+          <p>{index} </p>
+        ))}
+      </div>
+      {/* Testing */}
     </div>
   );
 }

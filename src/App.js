@@ -39,14 +39,18 @@ function App() {
   const [nextSongIndex, setNextSongIndex] = useState(currentSongIndex + 1);
   const [prevSongIndex, setPrevSongIndex] = useState(-1);
 
+  const [isPrevDisabled, setIsPrevDisabled] = useState(false);
+  const [isNextDisabled, setIsNextDisabled] = useState(false);
+
   const [isShuffle, setIsShuffle] = useState(false);
   const [isRepeat, setIsRepeat] = useState(false);
 
   const [shuffleQueue, setShuffleQueue] = useState([]);
+  const [shuffleIndex, setShuffleIndex] = useState(-1);
 
   const generateShuffleQueue = useCallback(() => {
     const totalSongs = songs.length;
-    const shuffledIndices = Array.from(Array(totalSongs).keys()).filter(
+    let shuffledIndices = Array.from(Array(totalSongs).keys()).filter(
       (index) => index !== currentSongIndex
     ); // Filter out the current song index
 
@@ -58,7 +62,8 @@ function App() {
         shuffledIndices[i],
       ];
     }
-
+    shuffledIndices = [...shuffledIndices, currentSongIndex];
+    setShuffleIndex(0);
     // Return the shuffled queue
     return shuffledIndices;
   }, [currentSongIndex, songs.length]);
@@ -66,22 +71,85 @@ function App() {
   useEffect(() => {
     if (isShuffle) {
       setShuffleQueue(generateShuffleQueue());
+      setShuffleIndex(0);
+      //testing
+      console.log("UseEffect triggered ---" + shuffleQueue);
     } else {
       setShuffleQueue([]);
     }
-  }, [isShuffle, setShuffleQueue, generateShuffleQueue]);
+  }, [isShuffle, setShuffleQueue]);
+  // }, [isShuffle, setShuffleQueue, generateShuffleQueue]);
 
   useEffect(() => {
+    // console.log(shuffleIndex);
+  }, [shuffleIndex]);
+
+  useEffect(() => {
+    // console.log(shuffleIndex);
+    let isPrevDisabled = false;
+    let isNextDisabled = false;
+    // setIsNextDisabled(false);
+    // setIsPrevDisabled(false);
     setNextSongIndex(() => {
-      if (isShuffle && shuffleQueue.length !== 0) {
-        return shuffleQueue[0];
+      let nextSong = 0;
+      if (isShuffle) {
+        if (shuffleIndex === songs.length - 1) {
+          if (isRepeat) {
+            nextSong = shuffleQueue[0];
+          } else {
+            //next button disable... next song any random
+            isNextDisabled = true;
+            nextSong = 0;
+          }
+        } else {
+          nextSong = shuffleQueue[shuffleIndex + 1];
+        }
+      } else {
+        // not shuffled
+        if (currentSongIndex === songs.length - 1) {
+          if (!isRepeat) {
+            // next button disable... next song 1st song in original
+            isNextDisabled = true;
+          }
+          nextSong = 0;
+        } else {
+          nextSong = currentSongIndex + 1;
+        }
       }
-      if (currentSongIndex + 1 > songs.length - 1) {
-        return 0;
-      }
-      return currentSongIndex + 1;
+      setIsNextDisabled(isNextDisabled);
+      return nextSong;
     });
-  }, [currentSongIndex, songs.length]);
+    setPrevSongIndex(() => {
+      let prevSong = 0;
+      if (isShuffle) {
+        if (shuffleIndex === 0) {
+          if (isRepeat) {
+            prevSong = shuffleQueue[songs.length - 1];
+          } else {
+            // disable prev button
+            isPrevDisabled = true;
+            prevSong = 0;
+          }
+        } else {
+          prevSong = shuffleQueue[shuffleIndex - 1];
+        }
+      } else {
+        // not shuffle
+        if (currentSongIndex === 0) {
+          if (isRepeat) {
+            prevSong = songs.length - 1;
+          } else {
+            //disable prev button
+            isPrevDisabled = true;
+          }
+        } else {
+          prevSong = currentSongIndex - 1;
+        }
+      }
+      setIsPrevDisabled(isPrevDisabled);
+      return prevSong;
+    });
+  }, [currentSongIndex, songs.length, isRepeat, isShuffle, shuffleQueue]);
 
   return (
     <div className="App">
@@ -97,6 +165,10 @@ function App() {
         setIsShuffle={setIsShuffle}
         isRepeat={isRepeat}
         setIsRepeat={setIsRepeat}
+        prevSongIndex={prevSongIndex}
+        isPrevDisabled={isPrevDisabled}
+        isNextDisabled={isNextDisabled}
+        // testing
         shuffleQueue={shuffleQueue}
       />
     </div>

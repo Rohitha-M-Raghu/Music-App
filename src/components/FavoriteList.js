@@ -1,18 +1,22 @@
 import React from "react";
-import FavoriteSong from "./FavoriteSong";
+import SongData from "./SongData";
 
 function FavoriteList(props) {
+  let { songs, likedList, setCurrentSongIndex, setIsPlaying } = props;
   return (
-    <div className="c-favorite--playlist">
-      {props.likedList.map((likedIndex) => (
-        <FavoriteSong
-          index={likedIndex}
-          key={likedIndex}
-          song={props.songs[likedIndex]}
-          setCurrentSongIndex={props.setCurrentSongIndex}
-          setIsPlaying={props.setIsPlaying}
-        />
-      ))}
+    <div>
+      <h2 className="c-favorites--title">Favorites</h2>
+      <div className="c-favorite--playlist">
+        {likedList.map((likedIndex) => (
+          <SongData
+            index={likedIndex}
+            key={likedIndex}
+            song={songs[likedIndex]}
+            setCurrentSongIndex={setCurrentSongIndex}
+            setIsPlaying={setIsPlaying}
+          />
+        ))}
+      </div>
     </div>
   );
 }
