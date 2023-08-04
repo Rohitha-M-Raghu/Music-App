@@ -4,8 +4,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 function Favorite(props) {
-  let { likedList, setLikedList, songIndex, showFavorites, setShowFavorites } =
-    props;
+  let { likedList, setLikedList, songIndex, setCurrentPage } = props;
 
   const [isLiked, setIsLiked] = useState(false);
 
@@ -14,8 +13,8 @@ function Favorite(props) {
   }, [likedList, songIndex]);
 
   const handleFavoriteBtnClick = () => {
-    const newShowFavorites = !showFavorites;
-    setShowFavorites(newShowFavorites);
+    const newCurrentPage = "favorite";
+    setCurrentPage(newCurrentPage);
     console.log("Favorite List... Clicked");
     console.log("Favorite: " + likedList);
   };
@@ -40,7 +39,7 @@ function Favorite(props) {
         <FontAwesomeIcon icon={faHeart} />
       </button>
       <button
-        className={`favorite-btn ${showFavorites ? "active-btn" : ""}`}
+        className={`favorite-btn active-btn`}
         onClick={handleFavoriteBtnClick}
       >
         <FontAwesomeIcon icon={faStar} />

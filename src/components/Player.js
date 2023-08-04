@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import PlayerDetails from "./PlayerDetails";
 import PlayerControls from "./PlayerControls";
 import Favorite from "./Favorite";
-import FavoriteList from "./FavoriteList";
+// import FavoriteList from "./FavoriteList";
 
 function Player(props) {
   let {
@@ -19,16 +19,16 @@ function Player(props) {
     prevSongIndex,
     isPrevDisabled,
     isNextDisabled,
-    shuffleQueue,
-    shuffleIndex,
+    setIsPlaying,
+    isPlaying,
+    setCurrentPage,
   } = props;
 
   let { title, artist } = songs[nextSongIndex];
   const audioEl = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [showFavorites, setShowFavorites] = useState(false);
+  // const [showFavorites, setShowFavorites] = useState(false);
 
   useEffect(() => {
     if (isPlaying) {
@@ -105,8 +105,9 @@ function Player(props) {
         likedList={likedList}
         setLikedList={setLikedList}
         songIndex={currentSongIndex}
-        showFavorites={showFavorites}
-        setShowFavorites={setShowFavorites}
+        setCurrentPage={setCurrentPage}
+        // showFavorites={showFavorites}
+        // setShowFavorites={setShowFavorites}
       />
       {/* Time Line */}
       <div>
@@ -138,27 +139,18 @@ function Player(props) {
         isPrevDisabled={isPrevDisabled}
         isNextDisabled={isNextDisabled}
       />
-      <p>
+      <p className="c-next--song-data">
         <strong>Next up:</strong> {title || "error loading title"} by{" "}
         {artist || "error loading artist"}
       </p>
-      {showFavorites && (
+      {/* {showFavorites && (
         <FavoriteList
           songs={songs}
           likedList={likedList}
           setCurrentSongIndex={setCurrentSongIndex}
           setIsPlaying={setIsPlaying}
         />
-      )}
-
-      {/* Testing */}
-      <div className="test--style">
-        {shuffleQueue.map((index) => (
-          <p>{index} </p>
-        ))}
-        <p>Shuffle Index: {shuffleIndex}</p>
-      </div>
-      {/* Testing */}
+      )} */}
     </div>
   );
 }

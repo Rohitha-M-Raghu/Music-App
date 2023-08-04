@@ -17,11 +17,12 @@ body {
   /* height: 100vh; */
 }
 
-.c-player {
+.c-player, .favorite-songlist-conatiner {
   display: block;
   background-color: #313131;
   /* fixed width */
   width: 50vh;
+  height: 95vh;
   display: block;
   margin: 0px auto;
   padding: 50px;
@@ -75,7 +76,8 @@ body {
   border: 3px dashed rgba(255, 206, 0, 1);
 }
 
-.c-player--details .details-title {
+.c-player--details .details-title,
+.c-favorites--title {
   color: #EEE;
   font-size: 28px;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.8), -2px -2px 4px rgba(255,255,255,0.4);
@@ -155,7 +157,7 @@ body {
   margin-bottom: 10px;
 }
 
-.shuffle-btn, .repeat-btn, .like-btn, .favorite-btn{
+.shuffle-btn, .repeat-btn, .like-btn, .favorite-btn, .back-btn{
   background-color: transparent;
   color: white; 
   border: none;
