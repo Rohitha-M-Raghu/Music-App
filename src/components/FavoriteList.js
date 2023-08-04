@@ -26,6 +26,7 @@ function FavoriteList(props) {
               song={songs[likedIndex]}
               setCurrentSongIndex={setCurrentSongIndex}
               setIsPlaying={setIsPlaying}
+              setCurrentPage={setCurrentPage}
             />
           ))
         )}

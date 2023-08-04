@@ -1,9 +1,11 @@
 import React from "react";
 function SongData(props) {
-  let { index, song, setCurrentSongIndex, setIsPlaying } = props;
+  let { index, song, setCurrentSongIndex, setIsPlaying, setCurrentPage } =
+    props;
   const changeSong = () => {
     setCurrentSongIndex(index);
     setIsPlaying(true);
+    setCurrentPage("player");
   };
   return (
     <button className="fav-song" onClick={changeSong}>
