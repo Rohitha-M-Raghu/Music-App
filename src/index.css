@@ -178,6 +178,11 @@ body {
   margin-top: 15px;
 }
 
+.c-nofavorite--songs {
+  color: white;
+  text-align: center;
+}
+
 .fav-song {
   height: 75px;
   background-color: transparent;

@@ -16,7 +16,20 @@ function FavoriteList(props) {
       </button>
       <h2 className="c-favorites--title">Favorites</h2>
       <div className="c-favorite--playlist">
-        {likedList.map((likedIndex) => (
+        {likedList.length === 0 ? (
+          <h3 className="c-nofavorite--songs">No Liked Songs</h3>
+        ) : (
+          likedList.map((likedIndex) => (
+            <SongData
+              index={likedIndex}
+              key={likedIndex}
+              song={songs[likedIndex]}
+              setCurrentSongIndex={setCurrentSongIndex}
+              setIsPlaying={setIsPlaying}
+            />
+          ))
+        )}
+        {/* {likedList.map((likedIndex) => (
           <SongData
             index={likedIndex}
             key={likedIndex}
@@ -24,7 +37,7 @@ function FavoriteList(props) {
             setCurrentSongIndex={setCurrentSongIndex}
             setIsPlaying={setIsPlaying}
           />
-        ))}
+        ))} */}
       </div>
     </div>
   );
