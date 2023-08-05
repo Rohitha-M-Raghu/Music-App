@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faList } from "@fortawesome/free-solid-svg-icons";
+// import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 function Favorite(props) {
   let { likedList, setLikedList, songIndex, setCurrentPage } = props;
@@ -20,7 +20,6 @@ function Favorite(props) {
   };
 
   const likingSong = () => {
-    console.log("Liked function -- triggering");
     setLikedList((prevLikedList) => {
       if (!isLiked) {
         return [...prevLikedList, songIndex];
@@ -38,11 +37,13 @@ function Favorite(props) {
       >
         <FontAwesomeIcon icon={faHeart} />
       </button>
-      <button
-        className={`favorite-btn active-btn`}
-        onClick={handleFavoriteBtnClick}
-      >
-        <FontAwesomeIcon icon={faStar} />
+      <button className={`favorite-btn`} onClick={handleFavoriteBtnClick}>
+        <div className="favorite-list-btn">
+          <FontAwesomeIcon icon={faList} />
+        </div>
+        <div className="favorite-list-heart">
+          <FontAwesomeIcon icon={faHeart} />
+        </div>
       </button>
     </div>
   );
