@@ -4,13 +4,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 function FavoriteList(props) {
-  let { songs, likedList, setCurrentSongIndex, setIsPlaying, setCurrentPage } =
-    props;
+  let {
+    songs,
+    likedList,
+    setCurrentSongIndex,
+    setIsPlaying,
+    setCurrentPage,
+    favoriteClass,
+  } = props;
   const backToHome = () => {
     setCurrentPage("player");
   };
   return (
-    <div className="favorite-songlist-conatiner">
+    <div className={favoriteClass}>
       <button onClick={backToHome} className="back-btn">
         <FontAwesomeIcon icon={faChevronLeft} />
       </button>
@@ -30,15 +36,6 @@ function FavoriteList(props) {
             />
           ))
         )}
-        {/* {likedList.map((likedIndex) => (
-          <SongData
-            index={likedIndex}
-            key={likedIndex}
-            song={songs[likedIndex]}
-            setCurrentSongIndex={setCurrentSongIndex}
-            setIsPlaying={setIsPlaying}
-          />
-        ))} */}
       </div>
     </div>
   );

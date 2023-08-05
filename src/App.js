@@ -52,6 +52,11 @@ function App() {
 
   const [isPlaying, setIsPlaying] = useState(false);
 
+  const [playerClass, setPlayerClass] = useState("c-player");
+  const [favoriteClass, setFavoriteClass] = useState(
+    "favorite-songlist-conatiner"
+  );
+
   // for checking whether shuffleIndex should change
   // const [isShuffleIndexChanges, setIisShuffleIndexChanges] = useState(false);
 
@@ -74,6 +79,16 @@ function App() {
     // Return the shuffled queue
     return shuffledIndices;
   }, [currentSongIndex, songs.length]);
+
+  useEffect(() => {
+    if (currentPage === "player") {
+      setPlayerClass("c-player c-active-block");
+      setFavoriteClass("favorite-songlist-conatiner");
+    } else if (currentPage === "favorite") {
+      setPlayerClass("c-player");
+      setFavoriteClass("favorite-songlist-conatiner c-active-block");
+    }
+  }, [currentPage]);
 
   useEffect(() => {
     if (isShuffle) {
@@ -163,39 +178,35 @@ function App() {
   return (
     <div className="App">
       {/* <Player song={songs[currentSongIndex]} nextSong={songs[nextSongIndex]} /> */}
-      {currentPage === "player" && (
-        <Player
-          currentSongIndex={currentSongIndex}
-          setCurrentSongIndex={setCurrentSongIndex}
-          nextSongIndex={nextSongIndex}
-          songs={songs}
-          likedList={likedList}
-          setLikedList={setLikedList}
-          isShuffle={isShuffle}
-          setIsShuffle={setIsShuffle}
-          isRepeat={isRepeat}
-          setIsRepeat={setIsRepeat}
-          prevSongIndex={prevSongIndex}
-          isPrevDisabled={isPrevDisabled}
-          isNextDisabled={isNextDisabled}
-          setIsPlaying={setIsPlaying}
-          isPlaying={isPlaying}
-          setCurrentPage={setCurrentPage}
-          // shuffleQueue={shuffleQueue}
-          // setShuffleIndex={setShuffleIndex}
-          // shuffleIndex={shuffleIndex}
-        />
-      )}
 
-      {currentPage === "favorite" && (
-        <FavoriteList
-          songs={songs}
-          likedList={likedList}
-          setCurrentSongIndex={setCurrentSongIndex}
-          setIsPlaying={setIsPlaying}
-          setCurrentPage={setCurrentPage}
-        />
-      )}
+      <Player
+        currentSongIndex={currentSongIndex}
+        setCurrentSongIndex={setCurrentSongIndex}
+        nextSongIndex={nextSongIndex}
+        songs={songs}
+        likedList={likedList}
+        setLikedList={setLikedList}
+        isShuffle={isShuffle}
+        setIsShuffle={setIsShuffle}
+        isRepeat={isRepeat}
+        setIsRepeat={setIsRepeat}
+        prevSongIndex={prevSongIndex}
+        isPrevDisabled={isPrevDisabled}
+        isNextDisabled={isNextDisabled}
+        setIsPlaying={setIsPlaying}
+        isPlaying={isPlaying}
+        setCurrentPage={setCurrentPage}
+        playerClass={playerClass}
+      />
+
+      <FavoriteList
+        songs={songs}
+        likedList={likedList}
+        setCurrentSongIndex={setCurrentSongIndex}
+        setIsPlaying={setIsPlaying}
+        setCurrentPage={setCurrentPage}
+        favoriteClass={favoriteClass}
+      />
     </div>
   );
 }

@@ -22,6 +22,7 @@ function Player(props) {
     setIsPlaying,
     isPlaying,
     setCurrentPage,
+    playerClass,
   } = props;
 
   let { title, artist } = songs[nextSongIndex];
@@ -85,7 +86,7 @@ function Player(props) {
   };
 
   return (
-    <div className="c-player">
+    <div className={playerClass}>
       <audio
         src={songs[currentSongIndex].src}
         ref={audioEl}
