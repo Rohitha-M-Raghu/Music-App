@@ -52,6 +52,10 @@ body {
   font-weight: 400;
 }
 
+.c-player--details {
+  height: 50vh;
+}
+
 .c-player--details .details-img {
   position: relative;
   width: fit-content;
